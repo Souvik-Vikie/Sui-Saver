@@ -1,0 +1,152 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} UI Tables {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
+          <h6>Caution Tweets</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tweets with Suicidal
+                    Probability</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status
+                  </th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date
+                    Posted
+                  </th>
+                  <th class="text-secondary opacity-7"></th>
+                </tr>
+              </thead>
+              {% for postive in positives %}
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div>
+                        <img src="/static/assets/img/small-logos/twitter-red.svg" class="avatar avatar-sm me-3">
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <!-- <h6 class="mb-0 text-sm">John Michael</h6> -->
+                        <p class="text-xs text-secondary mb-0">{{postive.0|safe|truncatechars:50}}</p>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td class="align-middle text-center text-sm">
+                    <span class="badge badge-sm bg-gradient-danger">{{postive.1}}</span>
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
+                  </td>
+                  <td class="align-middle">
+                    <a href="{{positive.3}}" class="text-secondary font-weight-bold text-xs">
+                      <i class="fa fa-twitter"></i>{{positive.3}}
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
+          <h6>All Tweets</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center justify-content-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tweet</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">
+                    Probability</th>
+                  <th></th>
+                </tr>
+              </thead>
+              {% for tweet in all_tweets %}
+
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="d-flex px-2">
+                      <div>
+                        <img src="/static/assets/img/small-logos/twitter-logo.svg"
+                          class="avatar avatar-sm rounded-circle me-2">
+                      </div>
+                      <div class="my-auto">
+                        <h6 class="mb-0 text-sm">{{tweet.0|safe|truncatechars:50}}</h6>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td>
+                    <span class="text-xs font-weight-bold">{{tweet.1}}</span>
+                  </td>
+                  <td class="align-middle text-center">
+                    <div class="d-flex align-items-center justify-content-center">
+                      <span class="me-2 text-xs font-weight-bold">{{tweet.2 }}</span>
+                      <div>
+                        <div class="progress">
+                          <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="60"
+                            aria-valuemin="0" aria-valuemax="100" style="width: {{tweet.2}}%;"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="align-middle">
+                    <button class="btn btn-link text-secondary mb-0">
+                      <i class="fa fa-ellipsis-v text-xs"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include "includes/footer.html" %}
+
+</div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+<script>
+  var win = navigator.platform.indexOf('Win') > -1;
+  if (win && document.querySelector('#sidenav-scrollbar')) {
+    var options = {
+      damping: '0.5'
+    }
+    Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+  }
+</script>
+
+{% endblock javascripts %}
